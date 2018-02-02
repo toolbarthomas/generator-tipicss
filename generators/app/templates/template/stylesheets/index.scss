@@ -1,0 +1,79 @@
+@charset "UTF-8";
+
+///
+// @name: __NAME__
+// @type: __TYPE__
+///
+
+///
+// 1. Shared - Must use mixins & functions
+///
+@import "tipicss-core/stylesheets/shared/*";
+
+@import "main/stylesheets/shared/*";
+@import "modules/stylesheets/shared/*";
+@import "groups/stylesheets/shared/*";
+@import "templates/stylesheets/shared/*";
+
+@import "tipicss-module*/stylesheets/shared/*";
+
+///
+// 2. Helpers - Helper functions to get a value from a mapped setting.
+///
+@import "tipicss-core/stylesheets/helpers/*";
+
+@import "main/stylesheets/helpers/*";
+@import "modules/stylesheets/helpers/*";
+@import "groups/stylesheets/helpers/*";
+@import "templates/stylesheets/helpers/*";
+
+@import "tipicss-module*/stylesheets/helpers/*";
+
+///
+// 3. Settings - All variables will be defined on the same level so we can share it in the whole project.
+///
+@import "tipicss-core/stylesheets/settings/*";
+
+@import "main/stylesheets/settings/*";
+@import "modules/stylesheets/settings/*";
+@import "groups/stylesheets/settings/*";
+@import "templates/stylesheets/settings/*";
+
+@import "tipicss-module*/stylesheets/settings/*";
+
+///
+// 4. Tools - Mixins & functions for defining project styling should be defined here
+///
+@import "tipicss-core/stylesheets/tools/*";
+
+@import "main/stylesheets/tools/*";
+@import "modules/stylesheets/tools/*";
+@import "groups/stylesheets/tools/*";
+@import "templates/stylesheets/tools/*";
+
+@import "tipicss-module*/stylesheets/tools/*";
+
+///
+// 5. Generic - Default tag style definitions for your app/module will be defined here. E.g. reset.css
+///
+@import "generic/*";
+
+///
+// 6. Base - Typography and other global styling definitions should be defined here.
+///
+@import "base/*";
+
+///
+// 7. Objects - Class-based selectors with undecorated design patterns i.e. layout definitions
+///
+@import "objects/*";
+
+///
+// 8. Components - Specific UI components will be defined here.
+///
+@import "components/*";
+
+///
+// 9. Utilities and helper classes with ability to override anything within the project. Usefull to define helper classes like: .hide
+///
+@import "utilities/*";

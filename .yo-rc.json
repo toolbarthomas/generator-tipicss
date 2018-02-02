@@ -1,0 +1,9 @@
+{
+  "generator-node": {
+    "promptValues": {
+      "authorName": "Thomas van der Velde",
+      "authorEmail": "contact@toolbarthomas.net",
+      "authorUrl": "toolbarthomas.net"
+    }
+  }
+}
