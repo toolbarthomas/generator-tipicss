@@ -1,7 +1,6 @@
 'use strict';
 
-// Load up the ENV file
-require('dotenv').config();
+const ENV = require('dotenv').config();
 
 // Set default destination for our generator commands
 if (typeof process.env.TIPICSS_SRC === 'undefined') {
@@ -153,7 +152,7 @@ module.exports = class extends Tipicss {
 
     var output_config = this.getOutputConfig(this.props.category);
 
-    var dest = Cwd;
+    var dest = Cwd + '/' + title;
     // Set the generated files destination
     if (this.props.destination) {
       dest = process.env.TIPICSS_SRC + '/' + output_config.base_folder + '/' + title;
