@@ -11,9 +11,9 @@
 @import "tipicss-core/stylesheets/shared/*";
 
 @import "main/stylesheets/shared/*";
-@import "modules/stylesheets/shared/*";
-@import "groups/stylesheets/shared/*";
-@import "templates/stylesheets/shared/*";
+@import "modules/*/stylesheets/shared/*";
+@import "groups/*/stylesheets/shared/*";
+@import "templates/*/stylesheets/shared/*";
 
 @import "tipicss-module*/stylesheets/shared/*";
 
@@ -23,9 +23,9 @@
 @import "tipicss-core/stylesheets/helpers/*";
 
 @import "main/stylesheets/helpers/*";
-@import "modules/stylesheets/helpers/*";
-@import "groups/stylesheets/helpers/*";
-@import "templates/stylesheets/helpers/*";
+@import "modules/*/stylesheets/helpers/*";
+@import "groups/*/stylesheets/helpers/*";
+@import "templates/*/stylesheets/helpers/*";
 
 @import "tipicss-module*/stylesheets/helpers/*";
 
@@ -35,9 +35,9 @@
 @import "tipicss-core/stylesheets/settings/*";
 
 @import "main/stylesheets/settings/*";
-@import "modules/stylesheets/settings/*";
-@import "groups/stylesheets/settings/*";
-@import "templates/stylesheets/settings/*";
+@import "modules/*/stylesheets/settings/*";
+@import "groups/*/stylesheets/settings/*";
+@import "templates/*/stylesheets/settings/*";
 
 @import "tipicss-module*/stylesheets/settings/*";
 
@@ -47,9 +47,9 @@
 @import "tipicss-core/stylesheets/tools/*";
 
 @import "main/stylesheets/tools/*";
-@import "modules/stylesheets/tools/*";
-@import "groups/stylesheets/tools/*";
-@import "templates/stylesheets/tools/*";
+@import "modules/*/stylesheets/tools/*";
+@import "groups/*/stylesheets/tools/*";
+@import "templates/*/stylesheets/tools/*";
 
 @import "tipicss-module*/stylesheets/tools/*";
 
