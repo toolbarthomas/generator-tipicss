@@ -11,11 +11,13 @@
 @import "tipicss-core/stylesheets/shared/*.scss";
 
 @import "main/stylesheets/shared/*.scss";
-@import "modules/stylesheets/shared/*.scss";
-@import "groups/stylesheets/shared/*.scss";
-@import "templates/stylesheets/shared/*.scss";
 
 @import "tipicss-module*/stylesheets/shared/*.scss";
+
+@import "modules/*/stylesheets/shared/*.scss";
+@import "groups/*/stylesheets/shared/*.scss";
+@import "templates/*/stylesheets/shared/*.scss";
+
 
 ///
 // 2. Helpers - Helper functions to get a value from a mapped setting.
@@ -23,11 +25,13 @@
 @import "tipicss-core/stylesheets/helpers/*.scss";
 
 @import "main/stylesheets/helpers/*.scss";
-@import "modules/stylesheets/helpers/*.scss";
-@import "groups/stylesheets/helpers/*.scss";
-@import "templates/stylesheets/helpers/*.scss";
 
 @import "tipicss-module*/stylesheets/helpers/*.scss";
+
+@import "modules/*/stylesheets/helpers/*.scss";
+@import "groups/*/stylesheets/helpers/*.scss";
+@import "templates/*/stylesheets/helpers/*.scss";
+
 
 ///
 // 3. Settings - All variables will be defined on the same level so we can share it in the whole project.
@@ -35,11 +39,13 @@
 @import "tipicss-core/stylesheets/settings/*.scss";
 
 @import "main/stylesheets/settings/*.scss";
-@import "modules/stylesheets/settings/*.scss";
-@import "groups/stylesheets/settings/*.scss";
-@import "templates/stylesheets/settings/*.scss";
 
 @import "tipicss-module*/stylesheets/settings/*.scss";
+
+@import "modules/*/stylesheets/settings/*.scss";
+@import "groups/*/stylesheets/settings/*.scss";
+@import "templates/*/stylesheets/settings/*.scss";
+
 
 ///
 // 4. Tools - Mixins & functions for defining project styling should be defined here
@@ -47,11 +53,13 @@
 @import "tipicss-core/stylesheets/tools/*.scss";
 
 @import "main/stylesheets/tools/*.scss";
-@import "modules/stylesheets/tools/*.scss";
-@import "groups/stylesheets/tools/*.scss";
-@import "templates/stylesheets/tools/*.scss";
 
 @import "tipicss-module*/stylesheets/tools/*.scss";
+
+@import "modules/*/stylesheets/tools/*.scss";
+@import "groups/*/stylesheets/tools/*.scss";
+@import "templates/*/stylesheets/tools/*.scss";
+
 
 ///
 // 5. Generic - Default tag style definitions for your app/module will be defined here. E.g. reset.css
