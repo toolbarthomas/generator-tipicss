@@ -8,72 +8,72 @@
 ///
 // 1. Shared - Must use mixins & functions
 ///
-@import "tipicss-core/stylesheets/shared/*";
+@import "tipicss-core/stylesheets/shared/*.scss";
 
-@import "main/stylesheets/shared/*";
-@import "modules/stylesheets/shared/*";
-@import "groups/stylesheets/shared/*";
-@import "templates/stylesheets/shared/*";
+@import "main/stylesheets/shared/*.scss";
+@import "modules/stylesheets/shared/*.scss";
+@import "groups/stylesheets/shared/*.scss";
+@import "templates/stylesheets/shared/*.scss";
 
-@import "tipicss-module*/stylesheets/shared/*";
+@import "tipicss-module*/stylesheets/shared/*.scss";
 
 ///
 // 2. Helpers - Helper functions to get a value from a mapped setting.
 ///
-@import "tipicss-core/stylesheets/helpers/*";
+@import "tipicss-core/stylesheets/helpers/*.scss";
 
-@import "main/stylesheets/helpers/*";
-@import "modules/stylesheets/helpers/*";
-@import "groups/stylesheets/helpers/*";
-@import "templates/stylesheets/helpers/*";
+@import "main/stylesheets/helpers/*.scss";
+@import "modules/stylesheets/helpers/*.scss";
+@import "groups/stylesheets/helpers/*.scss";
+@import "templates/stylesheets/helpers/*.scss";
 
-@import "tipicss-module*/stylesheets/helpers/*";
+@import "tipicss-module*/stylesheets/helpers/*.scss";
 
 ///
 // 3. Settings - All variables will be defined on the same level so we can share it in the whole project.
 ///
-@import "tipicss-core/stylesheets/settings/*";
+@import "tipicss-core/stylesheets/settings/*.scss";
 
-@import "main/stylesheets/settings/*";
-@import "modules/stylesheets/settings/*";
-@import "groups/stylesheets/settings/*";
-@import "templates/stylesheets/settings/*";
+@import "main/stylesheets/settings/*.scss";
+@import "modules/stylesheets/settings/*.scss";
+@import "groups/stylesheets/settings/*.scss";
+@import "templates/stylesheets/settings/*.scss";
 
-@import "tipicss-module*/stylesheets/settings/*";
+@import "tipicss-module*/stylesheets/settings/*.scss";
 
 ///
 // 4. Tools - Mixins & functions for defining project styling should be defined here
 ///
-@import "tipicss-core/stylesheets/tools/*";
+@import "tipicss-core/stylesheets/tools/*.scss";
 
-@import "main/stylesheets/tools/*";
-@import "modules/stylesheets/tools/*";
-@import "groups/stylesheets/tools/*";
-@import "templates/stylesheets/tools/*";
+@import "main/stylesheets/tools/*.scss";
+@import "modules/stylesheets/tools/*.scss";
+@import "groups/stylesheets/tools/*.scss";
+@import "templates/stylesheets/tools/*.scss";
 
-@import "tipicss-module*/stylesheets/tools/*";
+@import "tipicss-module*/stylesheets/tools/*.scss";
 
 ///
 // 5. Generic - Default tag style definitions for your app/module will be defined here. E.g. reset.css
 ///
-@import "generic/*";
+@import "generic/*.scss";
 
 ///
 // 6. Base - Typography and other global styling definitions should be defined here.
 ///
-@import "base/*";
+@import "base/*.scss";
 
 ///
 // 7. Objects - Class-based selectors with undecorated design patterns i.e. layout definitions
 ///
-@import "objects/*";
+@import "objects/*.scss";
 
 ///
 // 8. Components - Specific UI components will be defined here.
 ///
-@import "components/*";
+@import "components/*.scss";
 
 ///
 // 9. Utilities and helper classes with ability to override anything within the project. Usefull to define helper classes like: .hide
 ///
-@import "utilities/*";
+@import "utilities/*.scss";
