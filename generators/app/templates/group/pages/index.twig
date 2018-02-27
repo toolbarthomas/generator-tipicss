@@ -1,0 +1,44 @@
+{% extends "tipicss::/templates/__TEMPLATE__/index.twig" %}
+
+{% block head %}
+    {#
+        Block: head
+
+        By default the head block is used to define custom HTML for in the <head> tag
+        Any scoped stylesheets should be included within this tag.
+
+        Scoped styles can by easily defined by the default fg-loadcss module.
+    #}
+
+    {% include "tipicss_packages::/tipicss-core/partials/fg-loadcss.twig" with {
+        stylesheets: [
+            '/templates/__TEMPLATE__/stylesheets/index.css',
+            '/groups/__TITLE__/stylesheets/index.css',
+        ],
+        include_javascript: true
+    } %}
+
+{% endblock %}
+
+
+{% block content %}
+    {#
+        Block: content
+
+        The content block is used to define our main content within the current page.
+    #}
+{% endblock %}
+
+
+{% block foot %}
+    {#
+        Block: foot
+
+        By default the foot block is used to define custom HTML just before the closing tag for <body>
+        We use this block for including and/or embedding our javascripts files.
+    #}
+
+    <script src="/templates/__TEMPLATE__/javascripts/index.js"></script>
+    <script src="/groups/__TITLE__/javascripts/index.js"></script>
+
+{% endblock %}

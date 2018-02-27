@@ -1,12 +1,6 @@
 'use strict';
 
 const ENV = require('dotenv').config();
-
-// Set default destination for our generator commands
-if (typeof process.env.TIPICSS_SRC === 'undefined') {
-  process.env.TIPICSS_SRC = './src';
-}
-
 const Generator = require('yeoman-generator');
 const Chalk = require('chalk');
 const Fse = require('fs-extra');
@@ -14,208 +8,243 @@ const Path = require('path');
 const Replace = require('replace-in-file');
 const Cwd = process.cwd();
 const UpdateNotifier = require('update-notifier');
-
-if (Fse.existsSync(__dirname + '/../../package.json')) {
-  var pkg = JSON.parse(Fse.readFileSync(__dirname + '/../../package.json'));
-
-  UpdateNotifier({
-    pkg,
-    updateCheckInterval: 1000 * 60 * 60
-  }).notify();
+const Package = {
+    path: __dirname + '/../../package.json'
 }
 
+// Check if we have a source path defined for our Environment variable
+// Set a default value if we no value has been defined
+if (!process.env.TIPICSS_SRC) {
+    process.env.TIPICSS_SRC = './src';
+}
+
+// Check the package.json and show a notice if any upadtes are available.
+if (Fse.existsSync(Package.path)) {
+
+    // Parse the package.json contents and use it for the update notifier package
+    var pkg = JSON.parse(Fse.readFileSync(Package.path));
+
+    // Init the Update Notifier with an interval of 24 hours
+    UpdateNotifier({
+        pkg,
+        updateCheckInterval: 1000 * 60 * 60
+    }).notify();
+}
+
+
+// Extend Yeoman with TIPICSS
 class Tipicss extends Generator {
-  getOutputConfig(category) {
-    var output_config = [];
 
-    output_config.category = category;
+    getOutputConfig(category, title) {
 
-    // Define the base folder to place the new module in.
-    switch (category) {
-      case 'group':
-        output_config.base_folder = 'groups';
-        (output_config.success_message = 'Page created'),
-          (output_config.callback = function(src, labels) {
-            if (
-              typeof labels.title === 'undefined' ||
-              typeof labels.template === 'undefined'
-            ) {
-              return;
+        // Create an empty configuration array that stores the configuration defined per type: Module, Group or Template
+        // We use this configuration array in our callback
+        var output_config = [];
+
+        // Set the selected category defined within our Yeoman Prompt: module, group or template
+        output_config.category = category;
+
+        // Define values for our callback
+        // These values will be updated based on the specified choice
+        var base_folder = 'templates';
+        var files_to_rename = [];
+        var files_to_replace = [
+            'stylesheets/index.scss',
+            'javascripts/index.js'
+        ];
+        var success_message = 'Template Created!';
+
+        if(category == 'group') {
+
+            base_folder = 'groups';
+
+            files_to_rename = [];
+
+            files_to_replace = [
+                'pages/index.twig',
+                'stylesheets/index.scss',
+                'javascripts/index.js'
+            ];
+
+            success_message = 'Group created!';
+
+        }
+
+        else if (category == 'module') {
+
+            base_folder = 'modules';
+
+            files_to_rename = [
+                'partials/index.twig'
+            ];
+
+            files_to_replace = [
+                'stylesheets/index.scss',
+                'javascripts/index.js'
+            ];
+
+            success_message = 'Module created!';
+
+        }
+
+        // Destination folder for our new Group
+        output_config.base_folder = base_folder;
+
+        // Array of files we wan't to rename
+        output_config.files_to_rename = files_to_rename;
+
+        // Success message we wan't to dispay when Yoeman is done
+        output_config.success_message = success_message;
+
+        // Custom callback function for our current Group
+        output_config.callback = function (src, labels) {
+
+            for (var index = 0; index < files_to_replace.length; index++) {
+                files_to_replace[index] = src + '/' + files_to_replace[index];
             }
 
+            // Find and replace the following files after the scaffold
             Replace({
-              files: [src + '/package.json', src + '/stylesheets/index.scss'],
-              from: [/__NAME__/g, /__TYPE__/g],
-              to: [labels.title, 'Group'],
-              encoding: 'utf8'
+                files: files_to_replace,
+                from: [
+                    /__TITLE__/g,
+                    /__TYPE__/g,
+                    /__TEMPLATE__/g,
+                ],
+                to: [
+                    labels.title,
+                    labels.type,
+                    labels.template
+                ],
+                encoding: 'utf8'
             });
-          });
-        break;
-      case 'template':
-        output_config.base_folder = 'templates';
-        output_config.success_message = 'Template created';
-        output_config.callback = function(src, labels) {
-          if (typeof labels.title === 'undefined') {
-            return;
-          }
-
-          Replace({
-            files: [src + '/package.json', src + '/stylesheets/index.scss'],
-            from: [/__NAME__/g, /__TYPE__/g],
-            to: [labels.title, 'Template'],
-            encoding: 'utf8'
-          });
         };
-        break;
-      default:
-        output_config.base_folder = 'modules';
-        output_config.success_message = 'Module created';
-        output_config.callback = function(src, labels) {
-          if (typeof labels.title === 'undefined') {
-            return;
-          }
 
-          Replace({
-            files: [src + '/package.json', src + '/stylesheets/index.scss'],
-            from: [/__NAME__/g, /__TYPE__/g],
-            to: [labels.title, 'Module'],
-            encoding: 'utf8'
-          });
-        };
+        return output_config;
     }
-
-    return output_config;
-  }
 }
 
 module.exports = class extends Tipicss {
-  prompting() {
-    this.log('');
-    this.log(Chalk.green('Welcome to Tipicss module generator.') + '\n');
-    this.log(
-      Chalk.green(
-        'This setup will let you create a new module within the specified category'
-      ) + '\n'
-    );
-    this.log(
-      Chalk.reset('See: https://github.com/toolbarthomas/generator-tipicss') + '\n'
-    );
+    prompting() {
+        this.log('');
+        this.log(Chalk.green('Welcome to Tipicss module generator.') + '\n');
+        this.log(
+            Chalk.green(
+                'This setup will let you create a new module within the specified category'
+            ) + '\n'
+        );
+        this.log(
+            Chalk.reset('See: https://github.com/toolbarthomas/generator-tipicss') + '\n'
+        );
 
-    const prompts = [
-      {
-        type: 'list',
-        name: 'category',
-        message: "Which type do you wan't to scaffold.",
-        choices: ['module', 'group', 'template'],
-        default: 0
-      },
-      {
-        type: 'input',
-        name: 'title',
-        message: 'Name your new partial.',
-        default: 'new',
-        filter: function(name) {
-          return (name = name.split(' ').join('-'));
-        }
-      },
-      {
-        when: function(response) {
-          return response.category == 'group';
-        },
-        name: 'template',
-        message: 'For wich template is this page meant for?',
-        default: 'default'
-      },
-      {
-        type: 'confirm',
-        name: 'destination',
-        message:
-          'Do you want to scaffold your partial within the Tipicss project structure? (' +
-          process.env.TIPICSS_SRC +
-          ')',
-        default: 0
-      }
-    ];
+        const prompts = [
+            {
+                type: 'list',
+                name: 'category',
+                message: "Which type do you wan't to scaffold.",
+                choices: ['module', 'group', 'template'],
+                default: 0
+            },
+            {
+                type: 'input',
+                name: 'title',
+                message: 'Name your new partial.',
+                default: 'new',
+                filter: function(name) {
+                    return (name = name.split(' ').join('-'));
+                }
+            },
+            {
+                when: function(response) {
+                    return response.category == 'group';
+                },
+                name: 'template',
+                message: 'For wich template is this page meant for?',
+                default: 'default'
+            },
+            {
+                type: 'confirm',
+                name: 'destination',
+                message: 'Do you want to scaffold your partial within the Tipicss project structure? (' + process.env.TIPICSS_SRC +')',
+                default: 0
+            }
+        ];
 
-    return this.prompt(prompts).then(props => {
-      // To access props later use this.props.someAnswer;
-      this.props = props;
+        return this.prompt(prompts).then(props => {
+            // To access props later use this.props.someAnswer;
+            this.props = props;
 
-      this.log(Chalk.green('Affirmative, ready to setup ' + this.props.title));
-    });
-  }
-
-  writing() {
-    var category = this.props.category;
-    var title = this.props.title;
-    var template = this.props.template;
-
-    var output_config = this.getOutputConfig(this.props.category);
-
-    var dest = Cwd + '/' + title;
-    // Set the generated files destination
-    if (this.props.destination) {
-      dest = process.env.TIPICSS_SRC + '/' + output_config.base_folder + '/' + title;
+            this.log(Chalk.green('Affirmative, ready to setup ' + this.props.title));
+        });
     }
 
-    // Create file structure for the selected type
-    Fse.copy(this.templatePath(output_config.category), this.destinationPath(dest))
-      .then(() => {
-        this.log(Chalk.yellow('Structure created, creating files...'));
+    writing() {
+        var category = this.props.category;
+        var title = this.props.title;
+        var template = this.props.template;
 
-        if (typeof output_config.base_files === 'undefined') {
-          output_config.callback(dest, {
-            title: title,
-            template: template
-          });
+        var output_config = this.getOutputConfig(this.props.category, title);
 
-          return;
+        var dest = Cwd + '/' + title;
+        // Set the generated files destination
+        if (this.props.destination) {
+            dest = process.env.TIPICSS_SRC + '/' + output_config.base_folder + '/' + title;
         }
 
-        // Queuer to fire up the callback
-        var queue = 0;
-        output_config.base_files.forEach(function(base_file) {
-          var rename = {
-            input: dest + '/' + base_file,
-            output:
-              Path.dirname(dest + '/' + base_file) +
-              '/' +
-              this.props.title +
-              '.' +
-              Path.extname(base_file)
-                .split('.')
-                .pop()
-          };
+        // Create file structure for the selected type
+        Fse.copy(this.templatePath(output_config.category), this.destinationPath(dest))
+        .then(() => {
+            this.log(Chalk.yellow('Structure created, creating files...'));
 
-          // Rename the base files
-          Fse.rename(rename.input, rename.output, function(error) {
-            if (error) {
-              throw error;
+            if (output_config.files_to_rename.length == 0) {
+                output_config.callback(dest, {
+                    title: title,
+                    type: category,
+                    template: template
+                });
+
+                return;
             }
 
-            queue++;
+            // Queuer to fire up the callback
+            var queue = 0;
+            output_config.files_to_rename.forEach(function(base_file) {
 
-            // Init the callback when all files have been renamed
-            if (queue < output_config.base_files.length) {
-              return;
-            }
+                var rename = {
+                    input: dest + '/' + base_file,
+                    output: Path.dirname(dest + '/' + base_file) + '/' + this.props.title + '.' + Path.extname(base_file).split('.').pop()
+                };
 
-            // Proceed if we have a callback defined
-            if (typeof output_config.callback !== 'function') {
-              return;
-            }
+                // Rename the base files
+                Fse.rename(rename.input, rename.output, function(error) {
+                    if (error) {
+                        throw error;
+                    }
 
-            output_config.callback(dest, {
-              title: title,
-              template: template
-            });
-          });
-        }, this);
+                    queue++;
 
-        this.log(Chalk.green(output_config.success_message));
-      })
-      .catch(error => {
-        this.log(Chalk.red('An error has occured: ' + error));
-      });
-  }
+                    // Init the callback when all files have been renamed
+                    if (queue < output_config.files_to_rename.length) {
+                        return;
+                    }
+
+                    // Proceed if we have a callback defined
+                    if (typeof output_config.callback !== 'function') {
+                        return;
+                    }
+
+                    output_config.callback(dest, {
+                        title: title,
+                        type: category,
+                        template: template
+                    });
+                });
+            }, this);
+
+            this.log(Chalk.green(output_config.success_message));
+        })
+        .catch(error => {
+            this.log(Chalk.red('An error has occured: ' + error));
+        });
+    }
 };
