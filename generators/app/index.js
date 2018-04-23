@@ -1,5 +1,3 @@
-'use strict';
-
 const ENV = require('dotenv').config();
 const Generator = require('yeoman-generator');
 const Chalk = require('chalk');

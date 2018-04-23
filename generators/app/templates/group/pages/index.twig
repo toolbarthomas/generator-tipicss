@@ -38,6 +38,9 @@
         We use this block for including and/or embedding our javascripts files.
     #}
 
+    {% include "tipicss_packages::/tipicss-core/partials/svg-sprite-injector.twig" %}
+
+    <script src="/main/javascripts/index.js"></script>
     <script src="/templates/__TEMPLATE__/javascripts/index.js"></script>
     <script src="/groups/__TITLE__/javascripts/index.js"></script>
 
